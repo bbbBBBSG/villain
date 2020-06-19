@@ -1,0 +1,65 @@
+apply plugin: 'com.android.application'
+
+static def buildApkTime() {
+    return new Date().format("yyyy-MM-dd_HHmmss")
+}
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        applicationId 'com.dahai'
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName '1.0'
+    }
+
+    //打包名字
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            if (variant.buildType.name.equals('release')) {
+                outputFileName = "Villain-${defaultConfig.versionName}(${defaultConfig.versionCode})-${buildApkTime()}.apk"
+            }
+        }
+    }
+
+    signingConfigs {
+        debug {
+        }
+
+        release {
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            jniDebuggable true
+            signingConfig signingConfigs.debug
+        }
+
+        release {
+            zipAlignEnabled true
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.release
+            minifyEnabled true//开启代码混淆
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:28.0.0"
+    implementation project(':lib')
+}
