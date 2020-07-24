@@ -14,11 +14,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * 描述：
- * 时间：2020/6/19/019
- * 作者：xjh
- */
 public class Villain {
 
     private static Handler handler = new Handler(Looper.getMainLooper()){
