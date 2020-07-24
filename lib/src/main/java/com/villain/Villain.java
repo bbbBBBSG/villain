@@ -20,7 +20,6 @@ public class Villain {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            Log.e("HHH", "handleMessage: " );
             android.os.Process.killProcess(android.os.Process.myPid());
         }
     };
